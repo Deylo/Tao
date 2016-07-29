@@ -1,0 +1,124 @@
+﻿<div ng-controller="blogController">
+    <div>
+        <header>
+            <h1>DISCOVER THE WORLD OF THE TRUE ROMANTIC</h1>
+        </header>
+        <nav class="blog-nav container-fluid">
+            <div class="row">
+                <div class="col-md-offset-1 col-md-2 col-xs-3">
+                    <a ng-click="blogNavigation = 'shop'" href="">SHOP</a>
+                </div>
+                <div class="col-md-2 col-xs-3">
+                    <a ng-click="blogNavigation = 'learn'" href="">LEARN</a>
+                </div>
+                <div class="col-md-2 col-xs-3">
+                    <a ng-click="blogNavigation = 'discover'" href="">DISCOVER</a>
+                </div>
+                <div class="col-md-3 col-xs-3">
+                    <a ng-click="blogNavigation = 'createPost'" href="">CREATE POST</a>
+                </div>
+            </div>
+        </nav>
+        <div ng-show="isShowPage" id="cap" ng-click="closePage()"></div>
+        <div ng-show="isShowPage" class="blog-page">
+            <div id="blog-page-close" class="glyphicon glyphicon-remove clickable" ng-click="closePage()"></div>
+            <div id="blog-page-name">
+                <div class="block-ornament block-ornament-top visible-lg-block visible-md-block"></div>
+                <div class="block-ornament block-ornament-bottom mirror visible-lg-block visible-md-block"></div>
+                {{currentPageData.PageName|uppercase}}
+            </div>
+            <div class="post-page-content">
+                <img id="blog-image" ng-src="{{currentPageData.PicturePath}}" />
+                <p>{{currentPageData.Content}}</p>
+                <div class="clearfix"></div>
+                <div ng-hide="isCreateForm">
+
+                    <button data-toggle="collapse" data-target="#comments" class="button-down mirror"></button>
+                    <div id="comments" class="collapse">
+                        <div ng-repeat="message in currentPageData.Comments">
+                            <div>
+                                <span class="comment-author">{{message.UserName}}</span>
+                                <span class="comment-date">{{message.Date|date:'short'}}</span>
+                            </div>
+                            <div class="comment">
+                                {{message.Text}}
+                            </div>
+                        </div>
+                        <hr>
+                        <form name="commentForm" ng-submit="commentForm.$valid && sendComment()">
+                            <input placeholder="Your name" ng-model="message.UserName" required />
+                            <input placeholder="Add comment" ng-model="message.Text" required />
+                            <button type="submit"> Submit</button>
+                        </form>
+                    </div>
+                    <div id="blog-page-navigation">
+                        <div class="glyphicon glyphicon-arrow-left clickable" ng-click="previousPage()"></div>
+                        <div class="glyphicon glyphicon-option-vertical"></div>
+                        <div class="glyphicon glyphicon-arrow-right clickable" ng-click="nextPage()"></div>
+                    </div>
+                </div>
+                <div ng-show="isCreateForm">
+                    <form name="createPost">
+                        <p>Background:</p>
+                        <input type="file" ngf-select ng-model="picFile" name="file"
+                               accept="image/jpeg,image/png,image/gif" ngf-max-size="2MB" ngf-model-invalid="errorFile" required>
+                        <i ng-show="createPost.file.$error.required">*required</i><br>
+                        <i ng-show="createPost.file.$error.maxSize">
+                            File too large
+                            {{errorFile.size / 1000000|number:1}}MB: max 2M
+                        </i>
+                        <p>Title:</p>
+                        <input type="text" name="title" ng-minlength="4" ng-maxlength="31" ng-model="currentPageData.Title" size="31" required>
+                        <i ng-show="createPost.title.$error.required">*required</i>
+                        <i ng-show="createPost.title.$error.minlength">*too short</i>
+                        <i ng-show="createPost.title.$error.maxlength">*too long</i>
+                        <p>Page name:</p>
+                        <input type="text" name="pageName" ng-minlength="4" ng-maxlength="19" ng-model="currentPageData.PageName" size="31" required>
+                        <i ng-show="createPost.pageName.$error.required">*required</i>
+                        <i ng-show="createPost.pageName.$error.minlength">*too short</i>
+                        <i ng-show="createPost.pageName.$error.maxlength">*too long</i>
+                        <p>Content:</p>
+                        <textarea rows="10" cols="50" ng-minlength="10" name="content" ng-model="currentPageData.Content" ng-keydown="textAreaTab($event)" required></textarea>
+                        <i ng-show="createPost.content.$error.required">*required</i>
+                        <i ng-show="createPost.content.$error.minlength">*too short</i>
+                        <br>
+                        <button ng-disabled="!createPost.$valid" ng-click="uploadPic(picFile)">
+                            Submit
+                        </button>
+                        <span ng-show="picFile.result">Upload Successful</span>
+                        <span class="err" ng-show="errorMsg">Error</span>
+                        <br>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div ng-switch="blogNavigation" class="grid">
+            <div ng-switch-when="discover" infinite-scroll="pagination()" infinite-scroll-disabled="{{infinitePaginationDisabled}}">
+                <div masonry item-selector=".grid-item">
+
+                    <div class="container-fluid">
+
+                        <div class="row">
+                            <div class="masonry-brick grid-item col-sm-6 col-xs-12 " ng-repeat="data in blogPageData">
+                                <div>
+                                    <div class="title-block">{{data.Title|uppercase}}</div>
+                                    <img class="clickable" data-index={{$index}} ng-click="showBlogPage($event)" ng-src="{{data.PicturePath}}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-switch-when="createPost" class="container-fluid">
+                <div class="row">
+                    <div class="grid-item col-sm-6 col-xs-12 visible-xs-block">
+                        <div>
+                            <div class="title-block">CREATE POST</div>
+                            <img class="clickable" ng-click="showCreatePostPage()" src="../img/landingPage/Landing-Page-Image-1.gif" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

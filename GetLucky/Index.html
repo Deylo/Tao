@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet">
+    <link href="css/css.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    <div class="container">
+        <nav class="row main-nav">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="main-nav-ornament main-nav-top visible-md-block visible-lg-block"></div>
+                    <div class="main-nav-ornament main-nav-bottom mirror visible-md-block visible-lg-block"></div>
+                    <div class="main-nav-side-ornament main-nav-left mirror visible-md-block visible-lg-block"></div>
+                    <div class="main-nav-side-ornament main-nav-right visible-md-block visible-lg-block"></div>
+                    <div class="nav col-lg-5 col-sm-7 col-xs-5">
+                        <a ui-sref="home" ><b>THE ART OF DRESS</b></a>
+                        <a class="hidden-xs" href="#">ABOUT</a>
+                        <a class="hidden-xs" href="#">MY STYLE</a>
+                        <a class="hidden-xs" href="#">STORE</a>
+                        <a class="hidden-xs" ui-sref="blog">BLOG</a>
+                    </div>
+                    <div class="nav col-lg-3 col-lg-offset-4 col-sm-offset-1 col-sm-4 hidden-xs">
+                        <div class="menu">
+                            <div class="wishlist icon"></div>
+                            <div class="setings icon"></div>
+                            <div class="homepage icon"></div>
+                            <div class="glyphicon glyphicon-search"></div>  
+                        </div>
+                    </div>
+                    <div class="col-xs-offset-5 col-xs-1 visible-xs">
+                        <button data-toggle="collapse" data-target="#icons" class="btn navbar-btn">
+                            &#9776
+                        </button>    
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="collapse col-sx-6 hidden-sm hidden-md hidden-lg " id="icons">
+                        <a class="glyphicon glyphicon-info-sign" href="#"></a>
+                        <a class="glyphicon glyphicon-picture" href="#"></a>
+                        <a class="glyphicon glyphicon-shopping-cart" href="#"></a>
+                        <a ui-sref="blog" class="glyphicon glyphicon-book"></a>
+                        <a class="glyphicon glyphicon-question-sign" href="#"></a>
+                    </div>
+                </div>
+            </div>
+        </nav>    
+    </div>
+    <div class="container">
+        <div class="wrapper">
+            <div ui-view></div>
+        </div>
+    </div>
+    <script src="Scripts/jquery-1.9.1.min.js"></script>
+    
+    <!--<script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/angular-ui-router.min.js"></script>
+    <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+    <script src="Scripts/masonry.pkgd.min.js"></script>  
+    <script src="Scripts/angular-masonry.min.js"></script>
+    <script src="Scripts/ng-infinite-scroll.min.js"></script>-->
+  
+    <script src="Scripts/jquery-1.9.1.js"></script>
+    <script src="Scripts/bootstrap.js"></script>
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/angular-ui-router.js"></script>
+    <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+    <script src="Scripts/masonry.pkgd.min.js"></script>
+    <script src="Scripts/angular-masonry.min.js"></script>
+    <script src="Scripts/ng-infinite-scroll.js"></script>
+    <script src="Scripts/ng-file-upload-shim.js"></script>
+    <script src="Scripts/ng-file-upload.js"></script>
+    <script src="js/App.js"></script>
+    <script src="js/blogController.js"></script>
+    <script src="js/homeController.js"></script>
+</body>
+</html>
