@@ -31,12 +31,12 @@
         file.upload.then(function (response) {
             $timeout(function () {
                 file.result = response.data;
+                $scope.closePage();
+                alertify.notify('Post created', 'success', 5);
             });
         }, function (response) {
             if (response.status > 0)
                 $scope.errorMsg = response.status + ': ' + response.data;
-        }, function (evt) {
-            file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
         });
     }
 
@@ -53,9 +53,11 @@
 
         $http.post('api/Comments', $scope.message)
             .success((data, status, headers, config) => {
-             $scope.currentPageData.Comments.push(data);
-            console.log('success')})
+                $scope.currentPageData.Comments.push(data);
+                alertify.notify('Comment sended', 'success', 5, () => { console.log(headers)});
+            })
             .error((data, status, headers, config) => {
+                alertify.notify('Sending failed', 'failed', 5, () => { console.log(headers) });
                 console.log('error');
             });
 
@@ -89,11 +91,12 @@
 
         $scope.infinitePaginationDisabled = true;
         console.log('pagination');
-        $http.get('api/BlogPages/?offset=' + $scope.blogPageData.length + '&limit=4').success((data) => {
-            $scope.blogPageData = $scope.blogPageData.concat(data);
-            $timeout(() => { $scope.infinitePaginationDisabled = false; }, 1000);
-            console.log($scope.blogPageData);
-        });
+        $http.get('api/BlogPages/?offset=' + $scope.blogPageData.length + '&limit=4')
+            .success((data) => {
+                $scope.blogPageData = $scope.blogPageData.concat(data);
+                $timeout(() => { $scope.infinitePaginationDisabled = false; }, 1000);
+                console.log($scope.blogPageData);
+            });
     }
         
     $scope.previousPage = () => {
