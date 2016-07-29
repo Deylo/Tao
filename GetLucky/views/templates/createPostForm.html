@@ -1,0 +1,33 @@
+﻿<div ng-show="isCreateForm">
+    <form name="createPost">
+        <p>Background:</p>
+        <input type="file" ngf-select ng-model="picFile" name="file"
+               accept="image/jpeg,image/png,image/gif" ngf-max-size="2MB" ngf-model-invalid="errorFile" required>
+        <i ng-show="createPost.file.$error.required">*required</i><br>
+        <i ng-show="createPost.file.$error.maxSize">
+            File too large
+            {{errorFile.size / 1000000|number:1}}MB: max 2M
+        </i>
+        <p>Title:</p>
+        <input type="text" name="title" ng-minlength="4" ng-maxlength="31" ng-model="currentPageData.Title" size="31" required>
+        <i ng-show="createPost.title.$error.required">*required</i>
+        <i ng-show="createPost.title.$error.minlength">*too short</i>
+        <i ng-show="createPost.title.$error.maxlength">*too long</i>
+        <p>Page name:</p>
+        <input type="text" name="pageName" ng-minlength="4" ng-maxlength="19" ng-model="currentPageData.PageName" size="31" required>
+        <i ng-show="createPost.pageName.$error.required">*required</i>
+        <i ng-show="createPost.pageName.$error.minlength">*too short</i>
+        <i ng-show="createPost.pageName.$error.maxlength">*too long</i>
+        <p>Content:</p>
+        <textarea rows="10" cols="50" ng-minlength="10" name="content" ng-model="currentPageData.Content" ng-keydown="textAreaTab($event)" required></textarea>
+        <i ng-show="createPost.content.$error.required">*required</i>
+        <i ng-show="createPost.content.$error.minlength">*too short</i>
+        <br>
+        <button ng-disabled="!createPost.$valid" ng-click="uploadPic(picFile)">
+            Submit
+        </button>
+        <span ng-show="picFile.result">Upload Successful</span>
+        <span class="err" ng-show="errorMsg">Error</span>
+        <br>
+    </form>
+</div>

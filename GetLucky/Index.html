@@ -12,45 +12,10 @@
 </head>
 <body>
     <div class="container">
-        <nav class="row main-nav">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="main-nav-ornament main-nav-top visible-md-block visible-lg-block"></div>
-                    <div class="main-nav-ornament main-nav-bottom mirror visible-md-block visible-lg-block"></div>
-                    <div class="main-nav-side-ornament main-nav-left mirror visible-md-block visible-lg-block"></div>
-                    <div class="main-nav-side-ornament main-nav-right visible-md-block visible-lg-block"></div>
-                    <div class="nav col-lg-5 col-sm-7 col-xs-5">
-                        <a ui-sref="home" ><b>THE ART OF DRESS</b></a>
-                        <a class="hidden-xs" href="#">ABOUT</a>
-                        <a class="hidden-xs" href="#">MY STYLE</a>
-                        <a class="hidden-xs" href="#">STORE</a>
-                        <a class="hidden-xs" ui-sref="blog">BLOG</a>
-                    </div>
-                    <div class="nav col-lg-3 col-lg-offset-4 col-sm-offset-1 col-sm-4 hidden-xs">
-                        <div class="menu">
-                            <div class="wishlist icon"></div>
-                            <div class="setings icon"></div>
-                            <div class="homepage icon"></div>
-                            <div class="glyphicon glyphicon-search"></div>  
-                        </div>
-                    </div>
-                    <div class="col-xs-offset-5 col-xs-1 visible-xs">
-                        <button data-toggle="collapse" data-target="#icons" class="btn navbar-btn">
-                            &#9776
-                        </button>    
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="collapse col-sx-6 hidden-sm hidden-md hidden-lg " id="icons">
-                        <a class="glyphicon glyphicon-info-sign" href="#"></a>
-                        <a class="glyphicon glyphicon-picture" href="#"></a>
-                        <a class="glyphicon glyphicon-shopping-cart" href="#"></a>
-                        <a ui-sref="blog" class="glyphicon glyphicon-book"></a>
-                        <a class="glyphicon glyphicon-question-sign" href="#"></a>
-                    </div>
-                </div>
-            </div>
-        </nav>    
+       <main-nav-bar>
+        </main-nav-bar>
+
+
     </div>
     <div class="container">
         <div class="wrapper">
@@ -81,5 +46,6 @@
     <script src="js/App.js"></script>
     <script src="js/blogController.js"></script>
     <script src="js/homeController.js"></script>
+    <script src="js/TempatesDirective.js"></script>
 </body>
 </html>

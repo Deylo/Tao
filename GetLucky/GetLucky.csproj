@@ -220,6 +220,7 @@
     <Content Include="js\App.js" />
     <Content Include="js\blogController.js" />
     <Content Include="js\homeController.js" />
+    <Content Include="js\TempatesDirective.js" />
     <Content Include="Scripts\alertify.js" />
     <Content Include="Scripts\alertify.min.js" />
     <Content Include="Scripts\angular-masonry.min.js" />
@@ -257,6 +258,9 @@
     <Content Include="Scripts\ng-infinite-scroll.min.js" />
     <Content Include="views\blog.html" />
     <Content Include="views\home.html" />
+    <Content Include="views\templates\blogNavBar.html" />
+    <Content Include="views\templates\createPostForm.html" />
+    <Content Include="views\templates\mainNavBar.html" />
     <Content Include="Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -304,7 +308,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="views\templates\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201607290952357_InitialCreate.resx">
