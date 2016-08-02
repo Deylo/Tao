@@ -383,6 +383,9 @@ nav .menu  {
     display: flex;
     justify-content: space-between;
 }
+#comments .glyphicon{
+    font-size: 13px;
+}
 
 #blog-page-navigation{
     display: flex;

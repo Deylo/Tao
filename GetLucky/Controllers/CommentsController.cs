@@ -47,6 +47,7 @@ namespace GetLucky.Controllers
         //}
 
         // PUT: api/Comments/5
+        [Authorize]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutComment(int id, Comment comment)
         {
@@ -82,6 +83,7 @@ namespace GetLucky.Controllers
         }
 
         // POST: api/Comments
+        [Authorize]
         [ResponseType(typeof(Comment))]
         public IHttpActionResult PostComment(Comment comment)
         {
@@ -97,6 +99,7 @@ namespace GetLucky.Controllers
         }
 
         // DELETE: api/Comments/5
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(Comment))]
         public IHttpActionResult DeleteComment(int id)
         {

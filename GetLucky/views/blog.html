@@ -25,7 +25,9 @@
                         <div ng-repeat="message in currentPageData.Comments">
                             <div>
                                 <span class="comment-author">{{message.UserName}}</span>
-                                <span class="comment-date">{{message.Date|date:'short'}}</span>
+                                <span class="comment-date">{{message.Date|date:'short'}} 
+                                    <span ng-show="authentication.role.Admin" ng-click="deleteMessage(message.Id)" class="glyphicon glyphicon-remove"></span>
+                                </span>
                             </div>
                             <div class="comment">
                                 {{message.Text}}

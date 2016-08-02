@@ -57,6 +57,7 @@ namespace GetLucky.Controllers
         }
 
         // PUT: api/BlogPages/5
+        [Authorize]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutBlogPage(int id, BlogPage blogPage)
         {
@@ -105,7 +106,7 @@ namespace GetLucky.Controllers
 
         //    return CreatedAtRoute("DefaultApi", new { id = blogPage.Id }, blogPage);
         //}
-
+        [Authorize]
         public async Task<IHttpActionResult> PostFormData()
         {
             // Check if the request contains multipart/form-data.
@@ -141,6 +142,7 @@ namespace GetLucky.Controllers
         }
 
         // DELETE: api/BlogPages/5
+        [Authorize(Roles = "admin")]
         [ResponseType(typeof(BlogPage))]
         public IHttpActionResult DeleteBlogPage(int id)
         {

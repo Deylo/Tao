@@ -17,6 +17,18 @@
     $scope.authentication = authService.authentication;
     console.log($scope.authentication);
 
+    let _deleteMessage = function (messageId) {
+        $http.delete('api/Comments/' + messageId)
+            .success((data, status, headers, config) => {
+                loadComments();
+                alertify.notify('Message deleted', 'success', 5);
+            })
+            .error((data, status, headers, config) => {
+                alertify.notify(data.Message, 'failure', 5, () => { console.log(data)});
+            });
+
+    }
+
     $scope.$watch('picFile',  () => {
         console.log($scope.picFile);
         if (!$scope.picFile) return;
@@ -59,15 +71,15 @@
     $scope.sendComment = () => {
         $scope.message.Date = new Date();
         $scope.message.BlogPageId = $scope.currentPageId;
-        //$scope.message.userName = $scope.authentication.userName;
+        $scope.message.userName = $scope.authentication.userName;
 
         $http.post('api/Comments', $scope.message)
-            .success((data, status, headers, config) => {
+            .success((data) => {
                 $scope.currentPageData.Comments.push(data);
-                alertify.notify('Comment sended', 'success', 5, () => { console.log(headers)});
+                alertify.notify('Comment sended', 'success', 5);
             })
             .error((data, status, headers, config) => {
-                alertify.notify('Sending failed', 'failed', 5, () => { console.log(headers) });
+                alertify.notify(data.message, 'error', 5);
                 console.log('error');
             });
 
@@ -103,10 +115,10 @@
         console.log('pagination');
         $http.get('api/BlogPages/?offset=' + $scope.blogPageData.length + '&limit=4')
             .success((data) => {
-                console.log($scope.blogPageData);
                 $scope.blogPageData = $scope.blogPageData.concat(data);
-                console.log($scope.blogPageData);
                 $timeout(() => { $scope.infinitePaginationDisabled = false; }, 1000);
+            }).error((data) => {
+                alertify.notify(data.message, 'error', 5);
             });
     }
         
@@ -144,10 +156,14 @@
     }
 
     function loadComments() {
-        $http.get('api/Comments/' + $scope.currentPageId).success((data) => {
-            $scope.currentPageData.Comments = data;
-            console.log(data);
-        });
+        $http.get('api/Comments/' + $scope.currentPageId)
+            .success((data) => {
+                $scope.currentPageData.Comments = data;
+                console.log(data);
+            })
+            .error((data) => {
+                alertify.notify(data.message, 'error', 5);
+            });
     }
 
     function arrowNavigation(e) {
@@ -164,5 +180,7 @@
 
         });
     }
+
+    $scope.deleteMessage = _deleteMessage;
 
 });

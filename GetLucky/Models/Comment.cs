@@ -8,7 +8,6 @@ namespace GetLucky.Models
 {
     public class Comment
     {
-        [Required]
         public int Id { get; set; }
         [Required]
         public string UserName { get; set; }

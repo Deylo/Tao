@@ -7,7 +7,11 @@ myApp.factory('authService', function ($http, $q, localStorageService, jwtHelper
     var _authentication = {
         isAuth: false,
         userName: "",
-        role: []
+        role: {
+            Admin: false,
+            SuperAdmin: false,
+            test: false
+        }
     };
 
     var _saveRegistration = function (registration) {
@@ -29,15 +33,24 @@ myApp.factory('authService', function ($http, $q, localStorageService, jwtHelper
         $http.post(serviceBase + 'oauth/token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
             console.log(jwtHelper.decodeToken(response.access_token).role);
             var decodedData = jwtHelper.decodeToken(response.access_token);
-            localStorageService.set('authorizationData', {
-                token: response.access_token,
-                userName: decodedData.unique_name,
-                role: decodedData.role
-            });
 
             _authentication.isAuth = true;
             _authentication.userName = decodedData.unique_name;
-            _authentication.role = decodedData.role;
+
+            if (decodedData.role) {
+                for (let i in _authentication.role) {
+                    let t = decodedData.role.indexOf(i)
+                    if (decodedData.role.indexOf(i) != -1) _authentication.role[i] = true;
+                }
+            }
+
+            localStorageService.set('authorizationData', {
+                token: response.access_token,
+                userName: _authentication.userName,
+                role: _authentication.role
+            });
+
+ 
 
             deferred.resolve(response);
 
@@ -56,7 +69,11 @@ myApp.factory('authService', function ($http, $q, localStorageService, jwtHelper
 
         _authentication.isAuth = false;
         _authentication.userName = "";
-        _authentication.role = [];
+        _authentication.role = {
+            Admin: false,
+            SuperAdmin: false,
+            test: false
+        };
 
     };
 
