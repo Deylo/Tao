@@ -1,4 +1,4 @@
-﻿<nav class="row main-nav">
+﻿<nav class="row main-nav" ng-controller="mainNavBarController">
     <div class="container-fluid">
         <div class="row">
             <div class="main-nav-ornament main-nav-top visible-md-block visible-lg-block"></div>
@@ -15,8 +15,17 @@
             <div class="nav col-lg-3 col-lg-offset-4 col-sm-offset-1 col-sm-4 hidden-xs">
                 <div class="menu">
                     <div class="wishlist icon"></div>
-                    <div class="setings icon"></div>
-                    <div class="homepage icon"></div>
+                    <div ng-show="authentication.isAuth" class="setings icon"></div>
+                    <div ng-show="authentication.isAuth" class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                            {{authentication.userName}}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a ng-click="logOut()" class="clickable">Log Out</a></li>
+                        </ul>
+                    </div>
+                    <a class="homepage icon" ui-sref="login"></a>
                     <div class="glyphicon glyphicon-search"></div>
                 </div>
             </div>

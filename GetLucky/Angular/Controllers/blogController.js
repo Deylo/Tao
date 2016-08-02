@@ -1,4 +1,4 @@
-﻿myApp.controller('blogController', ($scope, $http, $timeout, Upload) => {
+﻿myApp.controller('blogController', ($scope, $http, $timeout, Upload, authService) => {
 
     $scope.blogPageData = [];
     $scope.currentPageData = {};
@@ -8,6 +8,14 @@
     $scope.isCreateForm = false;
     $scope.infinitePaginationDisabled = false
     $scope.blogNavigation = 'discover';
+    $scope.authentication = {};
+    $scope.logOut = function () {
+        authService.logOut();
+    }
+
+    authService.fillAuthData();
+    $scope.authentication = authService.authentication;
+    console.log($scope.authentication);
 
     $scope.$watch('picFile',  () => {
         console.log($scope.picFile);
@@ -31,6 +39,7 @@
         file.upload.then(function (response) {
             $timeout(function () {
                 file.result = response.data;
+                $scope.blogPageData.unshift($scope.currentPageData); //&&&&&&&&&&&&&&&&&&
                 $scope.closePage();
                 alertify.notify('Post created', 'success', 5);
             });
@@ -50,6 +59,7 @@
     $scope.sendComment = () => {
         $scope.message.Date = new Date();
         $scope.message.BlogPageId = $scope.currentPageId;
+        //$scope.message.userName = $scope.authentication.userName;
 
         $http.post('api/Comments', $scope.message)
             .success((data, status, headers, config) => {
@@ -93,9 +103,10 @@
         console.log('pagination');
         $http.get('api/BlogPages/?offset=' + $scope.blogPageData.length + '&limit=4')
             .success((data) => {
-                $scope.blogPageData = $scope.blogPageData.concat(data);
-                $timeout(() => { $scope.infinitePaginationDisabled = false; }, 1000);
                 console.log($scope.blogPageData);
+                $scope.blogPageData = $scope.blogPageData.concat(data);
+                console.log($scope.blogPageData);
+                $timeout(() => { $scope.infinitePaginationDisabled = false; }, 1000);
             });
     }
         

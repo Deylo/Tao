@@ -34,10 +34,10 @@ namespace GetLucky.Controllers
 
             IdentityResult addUserResult = await this.AppUserManager.CreateAsync(user, createUserModel.Password);
 
-            if (!addUserResult.Succeeded)
-            {
-                return GetErrorResult(addUserResult);
-            }
+            //if (!addUserResult.Succeeded)
+            //{
+            //    return GetErrorResult(addUserResult);
+            //}
 
             //string code = await this.AppUserManager.GenerateEmailConfirmationTokenAsync(user.Id);
 

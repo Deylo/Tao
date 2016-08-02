@@ -34,7 +34,7 @@ namespace GetLucky.Controllers
         public IHttpActionResult GetSomePages(int offset, int limit)
         {
 
-            var blogPages = db.BlogPages.OrderBy((s) =>  s.Id ).Skip(offset).Take(limit);
+            var blogPages = db.BlogPages.OrderByDescending((s) =>  s.Id ).Skip(offset).Take(limit);
             //if (blogPages == null)
             //{
             //    return NotFound();
