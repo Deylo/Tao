@@ -3,6 +3,8 @@ using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -34,16 +36,16 @@ namespace GetLucky.Controllers
 
             IdentityResult addUserResult = await this.AppUserManager.CreateAsync(user, createUserModel.Password);
 
-            //if (!addUserResult.Succeeded)
-            //{
-            //    return GetErrorResult(addUserResult);
-            //}
+            if (!addUserResult.Succeeded)
+            {
+                return GetErrorResult(addUserResult);
+            }
 
-            //string code = await this.AppUserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+            string code = await this.AppUserManager.GenerateEmailConfirmationTokenAsync(user.Id);
 
-            //var callbackUrl = new Uri(Url.Link("ConfirmEmailRoute", new { userId = user.Id, code = code }));
+            var callbackUrl = new Uri(Url.Link("ConfirmEmailRoute", new { userId = user.Id, code = code }));
 
-            //await this.AppUserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+            await this.AppUserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
             Uri locationHeader = new Uri(Url.Link("GetUserById", new { id = user.Id }));
 
@@ -65,7 +67,11 @@ namespace GetLucky.Controllers
 
             if (result.Succeeded)
             {
-                return Ok();
+                string url = "https://localhost:44305/Templates/ReportPage.html";
+
+                Uri uri = new Uri(url);
+
+                return Redirect(uri);
             }
             else
             {
