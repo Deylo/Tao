@@ -1,10 +1,10 @@
 ﻿'use strict';
 myApp.factory('authService', function ($http, $q, localStorageService, jwtHelper) {
 
-    var serviceBase = 'http://localhost:56620/';
-    var authServiceFactory = {};
+    let serviceBase = 'http://localhost:56620/';
+    let authServiceFactory = {};
 
-    var _authentication = {
+    let _authentication = {
         isAuth: false,
         userName: "",
         role: {
@@ -14,32 +14,30 @@ myApp.factory('authService', function ($http, $q, localStorageService, jwtHelper
         }
     };
 
-    var _saveRegistration = function (registration) {
+    let _saveRegistration = (registration) => {
 
         _logOut();
 
-        return $http.post(serviceBase + 'api/accounts/create', registration).then(function (response) {
+        return $http.post(serviceBase + 'api/accounts/create', registration).then((response) => {
             return response;
         });
 
     };
 
-    var _login = function (loginData) {
+    let _login = (loginData) => {
 
-        var data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password;
+        let data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password;
 
-        var deferred = $q.defer();
+        let deferred = $q.defer();
 
-        $http.post(serviceBase + 'oauth/token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
-            console.log(jwtHelper.decodeToken(response.access_token).role);
-            var decodedData = jwtHelper.decodeToken(response.access_token);
+        $http.post(serviceBase + 'oauth/token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success((response) => {
+            let decodedData = jwtHelper.decodeToken(response.access_token);
 
             _authentication.isAuth = true;
             _authentication.userName = decodedData.unique_name;
 
             if (decodedData.role) {
                 for (let i in _authentication.role) {
-                    let t = decodedData.role.indexOf(i)
                     if (decodedData.role.indexOf(i) != -1) _authentication.role[i] = true;
                 }
             }
@@ -54,7 +52,7 @@ myApp.factory('authService', function ($http, $q, localStorageService, jwtHelper
 
             deferred.resolve(response);
 
-        }).error(function (err, status) {
+        }).error((err, status) => {
             _logOut();
             deferred.reject(err);
         });
@@ -63,7 +61,7 @@ myApp.factory('authService', function ($http, $q, localStorageService, jwtHelper
 
     };
 
-    var _logOut = function () {
+    let _logOut = () => {
 
         localStorageService.remove('authorizationData');
 
@@ -77,9 +75,9 @@ myApp.factory('authService', function ($http, $q, localStorageService, jwtHelper
 
     };
 
-    var _fillAuthData = function () {
+    let _fillAuthData = () => {
 
-        var authData = localStorageService.get('authorizationData');
+        let authData = localStorageService.get('authorizationData');
         if (authData) {
             _authentication.isAuth = true;
             _authentication.userName = authData.userName;

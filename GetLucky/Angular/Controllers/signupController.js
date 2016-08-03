@@ -5,14 +5,6 @@ myApp.controller('signupController', function ($scope, $location, $timeout, auth
     $scope.message = "";
     $scope.passwordRegExp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).*$";
     $scope.passwordMatch = true;
-
-    let _passwordMatchCheck = function () {
-        if ($scope.registration.password == $scope.registration.confirmPassword)
-            $scope.passwordMatch = true;
-        else $scope.passwordMatch = false;
-    }
-
-
     $scope.registration = {
         firstName: "",
         lastName: "",
@@ -23,13 +15,21 @@ myApp.controller('signupController', function ($scope, $location, $timeout, auth
 
     };
 
-    $scope.signUp = function () {
+    let notificationDuration = 5;
+
+    let _passwordMatchCheck = function () {
+        if ($scope.registration.password == $scope.registration.confirmPassword)
+            $scope.passwordMatch = true;
+        else $scope.passwordMatch = false;
+    }
+
+    let _signUp = () => {
 
         authService.saveRegistration($scope.registration).then(function (response) {
 
             $scope.savedSuccessfully = true;
-            $scope.message = "User has been registered successfully, you will be redicted to login page in 2 seconds.";
-            startTimer();
+            alertify.notify('User has been registered successfully, please check your email for end registration', 'success', notificationDuration);
+            _startTimer();
 
         },
          function (response) {
@@ -39,17 +39,17 @@ myApp.controller('signupController', function ($scope, $location, $timeout, auth
                      errors.push(response.data.modelState[key][i]);
                  }
              }
-             $scope.message = "Failed to register user due to:" + errors.join(' ');
+             alertify.notify('Failed to register user due to:' + errors.join(' '), 'error', notificationDuration);
          });
     };
 
-    var startTimer = function () {
-        var timer = $timeout(function () {
+    let _startTimer = () => {
+        let timer = $timeout(function () {
             $timeout.cancel(timer);
             $location.path('/login');
         }, 2000);
     }
 
+    $scope.signUp = _signUp;
     $scope.passwordMatchCheck = _passwordMatchCheck;
-
 });

@@ -53,6 +53,20 @@ namespace GetLucky.Controllers
         }
 
         [AllowAnonymous]
+        [Route("Emails")]
+        public IHttpActionResult GetEmails(string email)
+        {
+            List<string> emails = new List<string>();
+
+            foreach(var i in AppUserManager.Users.ToList())
+            {
+                emails.Add(i.Email);    
+            }
+
+            return Ok(emails);
+        }
+
+        [AllowAnonymous]
         [HttpGet]
         [Route("ConfirmEmail", Name = "ConfirmEmailRoute")]
         public async Task<IHttpActionResult> ConfirmEmail(string userId = "", string code = "")
@@ -96,6 +110,22 @@ namespace GetLucky.Controllers
             }
 
             return Ok();
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("checkUsername/{username}")]
+        public async Task<IHttpActionResult> CheckUsername(string username)
+        {
+            var user = await this.AppUserManager.FindByNameAsync(username);
+
+            if (user != null)
+            {
+                return Ok();
+            }
+
+            return NotFound();
+
         }
 
         [Authorize(Roles = "Admin")]

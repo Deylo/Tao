@@ -41,9 +41,9 @@
                         <p ng-hide="authentication.isAuth">Please login to comment</p>
                     </div>
                     <div id="blog-page-navigation">
-                        <div class="glyphicon glyphicon-arrow-left clickable" ng-click="previousPage()"></div>
+                        <div class="glyphicon glyphicon-arrow-left clickable" ng-click="pageNavigation('previous')"></div>
                         <div class="glyphicon glyphicon-option-vertical"></div>
-                        <div class="glyphicon glyphicon-arrow-right clickable" ng-click="nextPage()"></div>
+                        <div class="glyphicon glyphicon-arrow-right clickable" ng-click="pageNavigation('next')"></div>
                     </div>
                 </div>
                 <create-post-form>

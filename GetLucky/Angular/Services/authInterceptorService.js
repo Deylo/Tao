@@ -3,7 +3,7 @@ myApp.factory('authInterceptorService', function ($q, $location, localStorageSer
 
     let authInterceptorServiceFactory = {};
 
-    let _request = function (config) {
+    let _request = (config) => {
 
         config.headers = config.headers || {};
 
@@ -16,7 +16,7 @@ myApp.factory('authInterceptorService', function ($q, $location, localStorageSer
         return config;
     }
 
-    let _responseError = function (rejection) {
+    let _responseError = (rejection) => {
         //if (rejection.status === 401) {
         //    $location.path('/login');
         //}

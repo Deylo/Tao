@@ -1,10 +1,11 @@
 ﻿myApp.controller('mainNavBarController', function ($scope, authService) {
 
-    $scope.logOut = function () {
+    authService.fillAuthData();
+    $scope.authentication = authService.authentication
+
+    let _logOut =  () => {
         authService.logOut();
     }
-
-    authService.fillAuthData();
-    $scope.authentication = authService.authentication;
-    console.log($scope.authentication);
+    
+    $scope.logOut = _logOut;
 });

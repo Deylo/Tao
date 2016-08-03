@@ -22,7 +22,7 @@
         </div>
         <div class="col-sm-6">
             <p>Content:</p>
-            <textarea rows="10" cols="50" ng-minlength="10" name="content" ng-model="currentPageData.Content" ng-keydown="textAreaTab($event)" required></textarea>
+            <textarea rows="10" cols="50" ng-minlength="10" name="content" ng-model="currentPageData.Content" required></textarea>
             <i ng-show="createPost.content.$error.required">*required</i>
             <i ng-show="createPost.content.$error.minlength">*too short</i>
             <br>

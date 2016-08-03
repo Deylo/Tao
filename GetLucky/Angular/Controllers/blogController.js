@@ -9,35 +9,36 @@
     $scope.infinitePaginationDisabled = false
     $scope.blogNavigation = 'discover';
     $scope.authentication = {};
-    $scope.logOut = function () {
+    authService.fillAuthData();
+    $scope.authentication = authService.authentication;
+
+    let notificationDuration = 5;
+
+    let _logOut = () => {
         authService.logOut();
     }
 
-    authService.fillAuthData();
-    $scope.authentication = authService.authentication;
-    console.log($scope.authentication);
-
-    let _deleteMessage = function (messageId) {
+    let _deleteMessage = (messageId) => {
         $http.delete('api/Comments/' + messageId)
             .success((data, status, headers, config) => {
-                loadComments();
-                alertify.notify('Message deleted', 'success', 5);
+                _loadComments();
+                alertify.notify('Message deleted', 'success', notificationDuration);
             })
             .error((data, status, headers, config) => {
-                alertify.notify(data.Message, 'failure', 5, () => { console.log(data)});
+                alertify.notify(data.Message, 'failure', notificationDuration);
             });
 
     }
 
     $scope.$watch('picFile',  () => {
-        console.log($scope.picFile);
+
         if (!$scope.picFile) return;
 
         $scope.currentPageData.PicturePath = URL.createObjectURL($scope.picFile);
 
     });
 
-    $scope.uploadPic = (file) => {
+    let _uploadPic = (file) => {
         file.upload = Upload.upload({
             url: 'api/BlogPages',
             data: {
@@ -48,28 +49,28 @@
             },
         });
 
-        file.upload.then(function (response) {
-            $timeout(function () {
+        file.upload.then((response) => {
+            $timeout(() => {
                 file.result = response.data;
                 $scope.blogPageData = [];
                 //$scope.blogPageData.unshift($scope.currentPageData); //&&&&&&&&&&&&&&&&&&
                 $scope.closePage();
-                alertify.notify('Post created', 'success', 5);
+                alertify.notify('Post created', 'success', notificationDuration);
             });
-        }, function (response) {
+        }, (response) => {
             if (response.status > 0)
                 $scope.errorMsg = response.status + ': ' + response.data;
         });
     }
 
-    $scope.showCreatePostPage = () => {
+    let _showCreatePostPage =  () => {
          $scope.currentPageData = {};
         $scope.isShowPage = true;
         $scope.isCreateForm = true;
        
     }
 
-    $scope.sendComment = () => {
+    let _sendComment = () => {
         $scope.message.Date = new Date();
         $scope.message.BlogPageId = $scope.currentPageId;
         $scope.message.userName = $scope.authentication.userName;
@@ -77,7 +78,7 @@
         $http.post('api/Comments', $scope.message)
             .success((data) => {
                 $scope.currentPageData.Comments.push(data);
-                alertify.notify('Comment sended', 'success', 5);
+                alertify.notify('Comment sended', 'success', notificationDuration);
             })
             .error((data, status, headers, config) => {
                 alertify.notify(data.message, 'error', 5);
@@ -88,28 +89,28 @@
         $scope.message = {}
     }
 
-    $scope.closePage = () => {
+    let _closePage = () => {
         $scope.isShowPage = false;
         $scope.isCreateForm = false;
-        $('body').off('keydown', arrowNavigation);
+        $('body').off('keydown', _arrowNavigation);
         $scope.currentPageData = {};
         $scope.currentPageData.PicturePath = " "; //&&&&&&&&&&&&&&&&&&&&&&&+
         $('#comments').removeClass('in');
     }
 
-    $scope.showBlogPage = ($event) => {
+    let _showBlogPage = ($event) => {
 
         $scope.currentPageIndex = $event.currentTarget.dataset.index;
         $scope.currentPageData = $scope.blogPageData[$scope.currentPageIndex];
         $scope.currentPageId = $scope.currentPageData.Id;
         $scope.isShowPage = true;
 
-        loadComments();        
+        _loadComments();        
          
-        $('body').on('keydown', arrowNavigation);
+        $('body').on('keydown', _arrowNavigation);
     }
 
-    $scope.pagination = () => {
+    let _pagination = () => {
         if ($scope.infinitePaginationDisabled) return;
 
         $scope.infinitePaginationDisabled = true;
@@ -119,69 +120,77 @@
                 $scope.blogPageData = $scope.blogPageData.concat(data);
                 $timeout(() => { $scope.infinitePaginationDisabled = false; }, 1000);
             }).error((data) => {
-                alertify.notify(data.message, 'error', 5);
+                alertify.notify(data.message, 'error', notificationDuration);
             });
     }
-        
-    $scope.previousPage = () => {
-        $scope.currentPageIndex = $scope.currentPageIndex == 0 ? +$scope.blogPageData.length - 1 : +$scope.currentPageIndex - 1;
-        $scope.currentPageData = $scope.blogPageData[$scope.currentPageIndex];
-        $scope.currentPageId = $scope.currentPageData.Id;
-        loadComments();
-    }
 
-    $scope.nextPage = () => {
-        $scope.currentPageIndex = $scope.currentPageIndex == $scope.blogPageData.length - 1 ? 0 : +$scope.currentPageIndex + 1;
-        $scope.currentPageData = $scope.blogPageData[$scope.currentPageIndex];
-        $scope.currentPageId = $scope.currentPageData.Id;
-        loadComments();
-    }
+    let _pageNavigation = (direction) => {
 
-    $scope.textAreaTab = ($event) => {
-        if ($event.which === 9) {
-            $event.preventDefault();
-
-
-            let start = $event.target.selectionStart;
-            let end = $event.target.selectionEnd;
-
-            if (!$scope.currentPageData.Content) $scope.currentPageData.Content = '';
-            console.log($scope.currentPageData.Content);
-
-            $scope.currentPageData.Content = $scope.currentPageData.Content.substring(0, start) + '\t' + $scope.currentPageData.Content.substring(end);
-            console.log($scope.currentPageData.Content);
-            angular.element($event.target).val($scope.currentPageData.Content);
-
-            $event.target.selectionStart = $event.target.selectionEnd = start + 1;
+        switch (direction) {
+            case 'previous':
+                $scope.currentPageIndex = $scope.currentPageIndex == 0 ? +$scope.blogPageData.length - 1 : +$scope.currentPageIndex - 1;
+                break;
+            case 'next':
+                $scope.currentPageIndex = $scope.currentPageIndex == $scope.blogPageData.length - 1 ? 0 : +$scope.currentPageIndex + 1;
+                break;
         }
-    }
 
-    function loadComments() {
+        $scope.currentPageData = $scope.blogPageData[$scope.currentPageIndex];
+        $scope.currentPageId = $scope.currentPageData.Id;
+        _loadComments();
+    }    
+
+    //$scope.textAreaTab = ($event) => {
+    //    if ($event.which === 9) {
+    //        $event.preventDefault();
+
+
+    //        let start = $event.target.selectionStart;
+    //        let end = $event.target.selectionEnd;
+
+    //        if (!$scope.currentPageData.Content) $scope.currentPageData.Content = '';
+    //        console.log($scope.currentPageData.Content);
+
+    //        $scope.currentPageData.Content = $scope.currentPageData.Content.substring(0, start) + '\t' + $scope.currentPageData.Content.substring(end);
+    //        console.log($scope.currentPageData.Content);
+    //        angular.element($event.target).val($scope.currentPageData.Content);
+
+    //        $event.target.selectionStart = $event.target.selectionEnd = start + 1;
+    //    }
+    //}
+
+    let _loadComments = () => {
         $http.get('api/Comments/' + $scope.currentPageId)
             .success((data) => {
                 $scope.currentPageData.Comments = data;
                 console.log(data);
             })
             .error((data) => {
-                alertify.notify(data.message, 'error', 5);
+                alertify.notify(data.message, 'error', notificationDuration);
             });
     }
 
-    function arrowNavigation(e) {
+    let _arrowNavigation = (e) => {
         $timeout(() => {
             switch (e.keyCode) {
                 case 37:
-                    $scope.previousPage();
+                    _pageNavigation('previous');
 
                     break;
                 case 39:
-                    $scope.nextPage();
+                    _pageNavigation('next')
                     break;
             }
 
         });
     }
-
+    $scope.logOut = _logOut;
     $scope.deleteMessage = _deleteMessage;
-
+    $scope.uploadPic = _uploadPic;
+    $scope.showCreatePostPage = _showCreatePostPage;
+    $scope.sendComment = _sendComment;
+    $scope.closePage = _closePage;
+    $scope.showBlogPage = _showBlogPage;
+    $scope.pagination = _pagination;
+    $scope.pageNavigation = _pageNavigation;
 });

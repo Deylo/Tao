@@ -1,32 +1,31 @@
 ﻿myApp.controller('homeController', ($scope, $location) => {
     $scope.initHome = () => {
-        $(window).on('scroll', toggleVisibility)
-                .on('resize', toggleVisibility)
-                .on('scroll', toggleUpButonVisibility)
-                .on('resize', toggleUpButonVisibility);
+        $(window).on('scroll', _toggleVisibility)
+                .on('resize', _toggleVisibility)
+                .on('scroll', _toggleUpButonVisibility)
+                .on('resize', _toggleUpButonVisibility);
     }
 
-    
-    $scope.goUp = function () {
+    let _goUp = () => {
         $('html, body').stop().animate({
             scrollTop: $('#page1').offset().top
         }, 1000);
     }
 
-    $scope.goDown = (anchor) => {
+    let _goDown = (anchor) => {
         $('html, body').stop().animate({
             scrollTop: $(anchor).offset().top
         }, 1000);
     }
 
     $scope.$on("$destroy", function () {
-        $(window).off('scroll', toggleVisibility)
-                 .off('resize', toggleVisibility)
-                 .off('scroll', toggleUpButonVisibility)
-                 .off('resize', toggleUpButonVisibility);
+        $(window).off('scroll', _toggleVisibility)
+                 .off('resize', _toggleVisibility)
+                 .off('scroll', _toggleUpButonVisibility)
+                 .off('resize', _toggleUpButonVisibility);
     });
 
-    function toggleUpButonVisibility() {
+    function _toggleUpButonVisibility() {
         console.log('tere');
         
         let $window = $(window);
@@ -48,7 +47,7 @@
                 .css({ opacity: 0 });
     }
 
-    function toggleVisibility() {
+    function _toggleVisibility() {
         let $window = $(window);
         let windowHeight = $window.height();
         let windowScroll = $window.scrollTop();
@@ -63,4 +62,7 @@
             else $elem.css({ opacity: 0});
         });
     }
+
+    $scope.goDown = _goDown;
+    $scope.goUp = _goUp;
 });
