@@ -22,11 +22,10 @@
                                     <label>Password</label>
                                     <input type="password" name="password" ng-model="loginData.password"
                                             class="form-control input-sm" placeholder="Password"
-                                            ng-minlength="6" ng-maxlength="18" required>
+                                            ng-minlength="6" required>
                                     <i ng-show="loginForm.password.$error.required">*required</i>
                                     <i ng-show="loginForm.password.$error.minlength">*too short</i>
                                     <i ng-show="loginForm.password.$error.maxlength">*too long</i>
-                                    <i ng-show="loginForm.password.$error.pattern">*Password must include at least one upper case letter, one lower case letter, and one numeric digit.</i>
                                 </div>
                             </div>
                         </div>

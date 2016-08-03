@@ -3,12 +3,20 @@ myApp.controller('signupController', function ($scope, $location, $timeout, auth
 
     $scope.savedSuccessfully = false;
     $scope.message = "";
-    $scope.passwordRegExp = "(?=.*\d)(?=.*[a-z])(?=.*[A-Z])";
+    $scope.passwordRegExp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).*$";
+    $scope.passwordMatch = true;
+
+    let _passwordMatchCheck = function () {
+        if ($scope.registration.password == $scope.registration.confirmPassword)
+            $scope.passwordMatch = true;
+        else $scope.passwordMatch = false;
+    }
+
 
     $scope.registration = {
         firstName: "",
         lastName: "",
-        username: "",
+        userName: "",
         email: "",
         password: "",
         confirmPassword: "",
@@ -41,5 +49,7 @@ myApp.controller('signupController', function ($scope, $location, $timeout, auth
             $location.path('/login');
         }, 2000);
     }
+
+    $scope.passwordMatchCheck = _passwordMatchCheck;
 
 });

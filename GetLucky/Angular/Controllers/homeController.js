@@ -1,4 +1,4 @@
-﻿myApp.controller('homeController', ($scope) => {
+﻿myApp.controller('homeController', ($scope, $location) => {
     $scope.initHome = () => {
         $(window).on('scroll', toggleVisibility)
                 .on('resize', toggleVisibility)
@@ -6,6 +6,7 @@
                 .on('resize', toggleUpButonVisibility);
     }
 
+    
     $scope.goUp = function () {
         $('html, body').stop().animate({
             scrollTop: $('#page1').offset().top
@@ -27,6 +28,7 @@
 
     function toggleUpButonVisibility() {
         console.log('tere');
+        
         let $window = $(window);
         let windowHeight = $window.height();
         let windowScroll = $window.scrollTop();

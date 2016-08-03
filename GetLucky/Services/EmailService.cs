@@ -23,7 +23,7 @@ namespace GetLucky.Services
             string html = message.Body;
             //do whatever you want to the message        
             MailMessage msg = new MailMessage();
-            msg.From = new MailAddress("test@gmail.com");
+            msg.From = new MailAddress("taotatao94@gmail.com");
             msg.To.Add(new MailAddress(message.Destination));
             msg.Subject = message.Subject;
             msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(text, null, MediaTypeNames.Text.Plain));
@@ -38,8 +38,15 @@ namespace GetLucky.Services
                 UseDefaultCredentials = false,
                 Credentials = new NetworkCredential(ConfigurationManager.AppSettings["emailService:Account"], ConfigurationManager.AppSettings["emailService:Password"])
         };
-
-            smtp.Send(msg);
+            try
+            {
+                smtp.Send(msg);
+            }
+            catch(Exception e)
+            {
+                var t = e;
+                t = null;    
+            }
 
         }
 

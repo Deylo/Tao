@@ -51,7 +51,8 @@
         file.upload.then(function (response) {
             $timeout(function () {
                 file.result = response.data;
-                $scope.blogPageData.unshift($scope.currentPageData); //&&&&&&&&&&&&&&&&&&
+                $scope.blogPageData = [];
+                //$scope.blogPageData.unshift($scope.currentPageData); //&&&&&&&&&&&&&&&&&&
                 $scope.closePage();
                 alertify.notify('Post created', 'success', 5);
             });

@@ -54,8 +54,8 @@
                                 <div class="form-group">
                                     <label>Password</label>
                                     <input type="password" name="password" ng-model="registration.password"  
-                                           class="form-control input-sm" placeholder="Password"
-                                           ng-minlength="6" ng-maxlength="18" required
+                                           class="form-control input-sm" placeholder="Password" ng-change="passwordMatchCheck()"
+                                           ng-minlength="6"  ng-pattern="passwordRegExp" required
                                     >
                                     <i ng-show="registrationForm.password.$error.required">*required</i>
                                     <i ng-show="registrationForm.password.$error.minlength">*too short</i>
@@ -67,10 +67,10 @@
                                 <div class="form-group">
                                     <label>Confirm password</label>
                                     <input type="password" name="confirmPassword" ng-model="registration.confirmPassword" 
-                                           class="form-control input-sm" placeholder="Confirm Password" required
+                                           ng-change="passwordMatchCheck()"  class="form-control input-sm" placeholder="Confirm Password" required
                                     >
                                     <i ng-show="registrationForm.confirmPassword.$error.required">*required</i>
-                                    <i ng-show="{{registrationForm.confirmPassword != registrationForm.password}}">*password doesn't match</i>
+                                    <i ng-hide="passwordMatch">*password doesn't match</i>
                                 </div>
                             </div>
                         </div>

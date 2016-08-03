@@ -1,6 +1,10 @@
 ﻿'use strict';
 myApp.controller('loginController',function ($scope, $location, authService, jwtHelper) {
 
+    if ($location.$$url.indexOf('confirmEmail') != -1) {
+        alertify.notify('Now you can login', 'success', 5);
+    }
+
     $scope.loginData = {
         userName: "",
         password: ""

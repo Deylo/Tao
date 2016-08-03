@@ -67,7 +67,7 @@ namespace GetLucky.Controllers
 
             if (result.Succeeded)
             {
-                string url = "https://localhost:44305/Templates/ReportPage.html";
+                string url = "http://localhost:56620/#/login?confirmEmail";
 
                 Uri uri = new Uri(url);
 
