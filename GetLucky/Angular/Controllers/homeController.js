@@ -25,9 +25,7 @@
                  .off('resize', _toggleUpButonVisibility);
     });
 
-    function _toggleUpButonVisibility() {
-        console.log('tere');
-        
+    function _toggleUpButonVisibility() {        
         let $window = $(window);
         let windowHeight = $window.height();
         let windowScroll = $window.scrollTop();

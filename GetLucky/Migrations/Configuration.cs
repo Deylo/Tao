@@ -55,16 +55,16 @@ namespace GetLucky.Migrations
 
             var user = new ApplicationUser()
             {
-                UserName = "SuperPowerUser",
-                Email = "taiseer.joudeh@gmail.com",
+                UserName = "SuperAdmin",
+                Email = "electron.@gmail.com",
                 EmailConfirmed = true,
-                FirstName = "Taiseer",
-                LastName = "Joudeh",
+                FirstName = "Dima",
+                LastName = "Lukash",
                 Level = 1,
                 JoinDate = DateTime.Now.AddYears(-3)
             };
 
-            manager.Create(user, "MySuperP@ss!");
+            manager.Create(user, "Test1!");
 
             if (roleManager.Roles.Count() == 0)
             {
@@ -73,7 +73,7 @@ namespace GetLucky.Migrations
                 roleManager.Create(new IdentityRole { Name = "User" });
             }
 
-            var adminUser = manager.FindByName("SuperPowerUser");
+            var adminUser = manager.FindByName("SuperAdmin");
 
             manager.AddToRoles(adminUser.Id, new string[] { "SuperAdmin", "Admin" });
         }

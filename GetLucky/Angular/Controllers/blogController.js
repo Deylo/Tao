@@ -84,8 +84,6 @@
                 alertify.notify(data.message, 'error', 5);
                 console.log('error');
             });
-
-        console.log($scope.currentPageData);
         $scope.message = {}
     }
 
@@ -114,7 +112,6 @@
         if ($scope.infinitePaginationDisabled) return;
 
         $scope.infinitePaginationDisabled = true;
-        console.log('pagination');
         $http.get('api/BlogPages/?offset=' + $scope.blogPageData.length + '&limit=4')
             .success((data) => {
                 $scope.blogPageData = $scope.blogPageData.concat(data);
@@ -163,7 +160,6 @@
         $http.get('api/Comments/' + $scope.currentPageId)
             .success((data) => {
                 $scope.currentPageData.Comments = data;
-                console.log(data);
             })
             .error((data) => {
                 alertify.notify(data.message, 'error', notificationDuration);

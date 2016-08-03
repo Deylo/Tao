@@ -30,7 +30,6 @@ namespace GetLucky.Controllers
                 Email = createUserModel.Email,
                 FirstName = createUserModel.FirstName,
                 LastName = createUserModel.LastName,
-                Level = 3,
                 JoinDate = DateTime.Now.Date,
             };
 
@@ -101,7 +100,6 @@ namespace GetLucky.Controllers
             {
                 return BadRequest(ModelState);
             }
-
             IdentityResult result = await this.AppUserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
 
             if (!result.Succeeded)

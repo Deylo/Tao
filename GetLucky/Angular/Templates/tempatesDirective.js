@@ -26,3 +26,17 @@ myApp.directive('createPostForm', function () {
         transclude: true,
     }
 })
+
+myApp.directive('landingPage', function () {
+    return {
+        restrict: 'E',
+        template: '<div><div ng-transclude></div></div>',
+        replace: true,
+        transclude: true,
+        link: function ($scope, element, attrs) {
+            attrs.$observe('backgroundImage', function (value) {
+                element.css('background', 'url("' + value + '")');
+            })
+        }
+    }
+});
