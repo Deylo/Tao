@@ -68,8 +68,8 @@ namespace GetLucky.Migrations
 
             if (roleManager.Roles.Count() == 0)
             {
-                roleManager.Create(new IdentityRole { Name = "SuperAdmin" });
                 roleManager.Create(new IdentityRole { Name = "Admin" });
+                roleManager.Create(new IdentityRole { Name = "PremiumUser" });
                 roleManager.Create(new IdentityRole { Name = "User" });
             }
 

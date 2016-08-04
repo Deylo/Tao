@@ -167,6 +167,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Angular\Controllers\adminPanelController.js" />
     <Content Include="Angular\Controllers\loginController.js" />
     <Content Include="Angular\Controllers\mainNavBarController.js" />
     <Content Include="Angular\Controllers\messageController.js" />
@@ -262,6 +263,7 @@
     <Content Include="Scripts\ng-file-upload.min.js" />
     <Content Include="Scripts\ng-infinite-scroll.js" />
     <Content Include="Scripts\ng-infinite-scroll.min.js" />
+    <Content Include="views\adminPanel.html" />
     <Content Include="views\blog.html" />
     <Content Include="views\home.html" />
     <Content Include="views\login.html" />

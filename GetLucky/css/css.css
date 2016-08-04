@@ -30,9 +30,12 @@ h1,h2,h3{
     text-align: center;
 }
 
+
+
 /*index*/
 
 .wrapper{
+    padding-top: 20px;
     background-color: rgb(245,246,247);
 }
 
@@ -147,7 +150,7 @@ nav .menu  {
 .block{
     text-align: center;
     border: solid black 2px; 
-    margin: 20px 0 20px 0;
+    /*margin: 20px 0 20px 0;*/
     background: white;
     font-style: italic;
     position: relative;
@@ -392,6 +395,11 @@ landing-page button.btn{
 
 /*collage end*/
 
+/*Admin panel*/
+
+.admin-panel > div{
+    background-color: rgb(33,150,53);
+}
 
 
 

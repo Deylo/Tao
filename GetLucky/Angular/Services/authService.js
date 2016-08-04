@@ -1,17 +1,18 @@
 ﻿'use strict';
 myApp.factory('authService', function ($http, $q, localStorageService, jwtHelper) {
 
+    let _roleEnum = {
+        user: 0,
+        premiumUser: 1,
+        admin: 2
+    }
+
     let serviceBase = 'http://localhost:56620/';
     let authServiceFactory = {};
-
     let _authentication = {
         isAuth: false,
-        userName: "",
-        role: {
-            Admin: false,
-            SuperAdmin: false,
-            test: false
-        }
+        userName: '',
+        role: ''
     };
 
     let _saveRegistration = (registration) => {
@@ -35,10 +36,13 @@ myApp.factory('authService', function ($http, $q, localStorageService, jwtHelper
 
             _authentication.isAuth = true;
             _authentication.userName = decodedData.unique_name;
+            console.log(decodedData);
+            //_authentication.role = decodedData.role;
 
             if (decodedData.role) {
-                for (let i in _authentication.role) {
-                    if (decodedData.role.indexOf(i) != -1) _authentication.role[i] = true;
+               for (let i in roleEnum) {
+                   if (decodedData.role.toLowerCase() === i.toLowerCase())
+                       _authentication.role = _roleEnum[i];
                 }
             }
 
@@ -66,12 +70,8 @@ myApp.factory('authService', function ($http, $q, localStorageService, jwtHelper
         localStorageService.remove('authorizationData');
 
         _authentication.isAuth = false;
-        _authentication.userName = "";
-        _authentication.role = {
-            Admin: false,
-            SuperAdmin: false,
-            test: false
-        };
+        _authentication.userName = '';
+        _authentication.role = '';
 
     };
 
@@ -86,11 +86,16 @@ myApp.factory('authService', function ($http, $q, localStorageService, jwtHelper
 
     }
 
+    let _capitalizeFirstLetter = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
     authServiceFactory.saveRegistration = _saveRegistration;
     authServiceFactory.login = _login;
     authServiceFactory.logOut = _logOut;
     authServiceFactory.fillAuthData = _fillAuthData;
     authServiceFactory.authentication = _authentication;
+    authServiceFactory.roleEnum = _roleEnum;
 
     return authServiceFactory;
 });

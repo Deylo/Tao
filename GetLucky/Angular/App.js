@@ -20,10 +20,20 @@ myApp.config(($stateProvider, $urlRouterProvider) => {
             url: '/login',
             templateUrl: 'views/login.html'
         })
+        .state('adminPanel', {
+            url: '/adminPanel',
+            templateUrl: 'views/adminPanel.html'
+        })
         .state('otherwise', {
             url: '/home',
             templateUrl: 'views/home.html'
         });
+});
+
+myApp.run(function ($rootScope, $templateCache) {
+    $rootScope.$on('$viewContentLoaded', function () {
+        $templateCache.removeAll();
+    });
 });
 
 myApp.config(function ($httpProvider) {

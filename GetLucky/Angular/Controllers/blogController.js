@@ -9,8 +9,10 @@
     $scope.infinitePaginationDisabled = false
     $scope.blogNavigation = 'discover';
     $scope.authentication = {};
+
     authService.fillAuthData();
     $scope.authentication = authService.authentication;
+    $scope.roleEnum = authService.roleEnum;
 
     let notificationDuration = 5;
 

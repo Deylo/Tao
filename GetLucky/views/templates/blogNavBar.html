@@ -1,13 +1,25 @@
 ﻿<nav class="blog-nav container-fluid">
     <div class="row">
         <div class="col-md-offset-3 col-md-2 col-xs-4">
-            <a ng-click="blogNavigation = 'shop'" href="">SHOP</a>
+            <div ng-class="blogNavigation == 'shop' ? 'block':''">
+                <div ng-show="blogNavigation == 'shop'" class="block-ornament block-ornament-top visible-md-block visible-lg-block"></div>
+                <div ng-show="blogNavigation == 'shop'" class="block-ornament block-ornament-bottom mirror visible-md-block visible-lg-block"></div>
+                <a ng-click="blogNavigation = 'shop'" href="">SHOP</a>
+            </div>
         </div>
         <div class="col-md-2 col-xs-4">
-            <a ng-click="blogNavigation = 'learn'" href="">LEARN</a>
+            <div ng-class="blogNavigation == 'learn' ? 'block':''">
+                <div ng-show="blogNavigation == 'learn'" class="block-ornament block-ornament-top visible-md-block visible-lg-block"></div>
+                <div ng-show="blogNavigation == 'learn'" class="block-ornament block-ornament-bottom mirror visible-md-block visible-lg-block"></div>
+                <a ng-click="blogNavigation = 'learn'" href="">LEARN</a>
+            </div>
         </div>
         <div class="col-md-2 col-xs-4">
-            <a ng-click="blogNavigation = 'discover'" href="">DISCOVER</a>
+            <div ng-class="blogNavigation == 'discover' ? 'block':''">
+                <div ng-show="blogNavigation == 'discover'" class="block-ornament block-ornament-top visible-md-block visible-lg-block"></div>
+                <div ng-show="blogNavigation == 'discover'" class="block-ornament block-ornament-bottom mirror visible-md-block visible-lg-block"></div>
+                <a ng-click="blogNavigation = 'discover'" href="">DISCOVER</a>
+            </div>
         </div>
     </div>
 </nav>
