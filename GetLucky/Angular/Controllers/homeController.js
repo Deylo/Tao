@@ -8,13 +8,15 @@
 
     let _goUp = () => {
         $('html, body').stop().animate({
-            scrollTop: $('#page1').offset().top
+            scrollTop: $('landing-page:first').offset().top
         }, 1000);
     }
 
-    let _goDown = (anchor) => {
+    let _goDown = ($event) => {
         $('html, body').stop().animate({
-            scrollTop: $(anchor).offset().top
+            scrollTop: $($event.currentTarget)
+                .next('landing-page')
+                .offset().top
         }, 1000);
     }
 
@@ -30,7 +32,7 @@
         let windowHeight = $window.height();
         let windowScroll = $window.scrollTop();
         let $upButton = $('.button-up');
-        let $page = $('#page1');
+        let $page = $('landing-page:first');
         let elemBottomPosition = $page.offset().top + $page.outerHeight();
 
         if ((elemBottomPosition - windowScroll) < 0)

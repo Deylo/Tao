@@ -173,53 +173,27 @@ nav .menu  {
     margin-top: -5px;
 }
 
-.landing-page{
+landing-page{
+    display: block;
     text-align: center;
     border: solid black 10px;
     padding-top: 70px;
     padding-bottom: 70px;
+    background-size: cover;
 }
 
-.landing-page h2,h3{
+landing-page h2,h3{
     margin-bottom: 30px;
 }
 
-.landing-page > .row{
+landing-page > .row{
     width: 700px;
     margin: auto;
 }
 
-.landing-page button{
+landing-page button{
     font-size: 40px;
-}
 
-#page1{
-    background: url("../img/landingPage/Landing-Page-Image-1.gif") 100% 100% no-repeat;
-    background-size: cover;
-}
-
-#page2{
-    background: url("../img/landingPage/Landing-Page-Image-2.gif") 100% 100% no-repeat;
-    background-size: cover;
-}
-
-#page3{
-    background: url("../img/landingPage/Landing-Page-Image-3.gif") 100% 100% no-repeat;
-    background-size: cover;
-}
-
-#page4{
-    background: url("../img/landingPage/Landing-Page-Image-4.gif") 100% 100% no-repeat;
-    background-size: cover;
-}
-
-#page5{
-    background: url("../img/landingPage/Landing-Page-Image-5.gif") 100% 100% no-repeat;
-    background-size: cover;
-}
-#page6{
-    background: url("../img/landingPage/Landing-Page-Image-6.gif") 100% 100% no-repeat;
-    background-size: cover;
 }
 
 .button-down{
