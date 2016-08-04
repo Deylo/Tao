@@ -7,13 +7,13 @@ namespace GetLucky.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class p : IMigrationMetadata
+    public sealed partial class test1 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(p));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(test1));
         
         string IMigrationMetadata.Id
         {
-            get { return "201608031332034_p"; }
+            get { return "201608040714362_test1"; }
         }
         
         string IMigrationMetadata.Source

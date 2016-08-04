@@ -32,11 +32,13 @@
                             </div>
                         </div>
                         <hr>
-                        <form ng-show="authentication.isAuth" name="commentForm" ng-submit="commentForm.$valid && sendComment()">
-                            <input placeholder="Add comment" ng-model="message.Text" required />
-                            <button type="submit"> Submit</button>
-                        </form>
-                        <p ng-hide="authentication.isAuth">Please login to comment</p>
+                        <div class="container-fluid">
+                            <form class="row" ng-show="authentication.isAuth" name="commentForm" ng-submit="commentForm.$valid && sendComment()">
+                                <input class="col-md-11 col-sm-10 col-xs-12" placeholder="Add a comment" ng-model="message.Text" required />
+                                <button class="col-md-1 col-sm-2 col-xs-12" type="submit"> Submit</button>
+                            </form>
+                            <p ng-hide="authentication.isAuth">Please login to comment</p>
+                        </div>
                     </div>
                     <div id="blog-page-navigation">
                         <div class="glyphicon glyphicon-arrow-left clickable" ng-click="pageNavigation('previous')"></div>
@@ -48,37 +50,31 @@
                 </create-post-form>
             </div>
         </div>
-        <div ng-switch="blogNavigation" class="grid">
-            <div ng-switch-when="discover" infinite-scroll="pagination()" infinite-scroll-disabled="{{infinitePaginationDisabled}}">
-                <div masonry item-selector=".grid-item">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="grid-item col-sm-6 col-xs-12">
-                                <div>
-                                    <div class="title-block">CREATE POST</div>
-                                    <img class="clickable" ng-click="showCreatePostPage()" src="../img/landingPage/Landing-Page-Image-1.gif" />
-                                </div>
-                            </div>
-                            <div class="masonry-brick grid-item col-sm-6 col-xs-12 " ng-repeat="data in blogPageData | orderBy: '-Id'">
-                                <div>
-                                    <div class="title-block">{{data.Title|uppercase}}</div>
-                                    <img class="clickable" data-index={{$index}} ng-click="showBlogPage($event)" ng-src="{{data.PicturePath}}" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--<div ng-switch-when="createPost" class="container-fluid">
-                <div class="row">
-                    <div class="grid-item col-sm-6 col-xs-12 visible-xs-block">
+        <div ng-switch="blogNavigation" class="grid container-fluid">
+            <div ng-switch-when="discover">
+                <div ng-show="authentication.isAuth" class="row grid">
+                    <div ng-class="authentication.isAuth ? 'grid-item col-sm-6 col-sm-offset-3 col-xs-12': ''">
                         <div>
                             <div class="title-block">CREATE POST</div>
                             <img class="clickable" ng-click="showCreatePostPage()" src="../img/landingPage/Landing-Page-Image-1.gif" />
                         </div>
                     </div>
                 </div>
-            </div>-->
+                <div  infinite-scroll="pagination()" infinite-scroll-disabled="{{infinitePaginationDisabled}}">
+                    <div masonry item-selector=".grid-item">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="masonry-brick grid-item col-sm-6 col-xs-12 " ng-repeat="data in blogPageData ">
+                                    <div>
+                                        <div class="title-block">{{data.Title|uppercase}}</div>
+                                        <img class="clickable" data-index={{$index}} ng-click="showBlogPage($event)" ng-src="{{data.PicturePath}}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

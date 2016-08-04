@@ -8,24 +8,23 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>User name</label>
+                                    <label>*User name</label>
                                     <input type="text" name="userName" ng-model="loginData.userName"
                                            ng-minlength="4" ng-maxlength="18" class="form-control input-sm"
                                            placeholder="User name" required>
-                                    <i ng-show="loginForm.userName.$error.required">*required</i>
                                     <i ng-show="loginForm.userName.$error.minlength">*too short</i>
                                     <i ng-show="loginForm.userName.$error.maxlength">*too long</i>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Password</label>
+                                    <label>*Password</label>
                                     <input type="password" name="password" ng-model="loginData.password"
                                             class="form-control input-sm" placeholder="Password"
-                                            ng-minlength="6" required>
-                                    <i ng-show="loginForm.password.$error.required">*required</i>
+                                            ng-pattern="passwordRegExp" ng-minlength="6" required>
                                     <i ng-show="loginForm.password.$error.minlength">*too short</i>
                                     <i ng-show="loginForm.password.$error.maxlength">*too long</i>
+                                    <i ng-show="loginForm.password.$error.pattern">*Password must include at least one upper case letter, one lower case letter, and one numeric digit.</i>
                                 </div>
                             </div>
                         </div>

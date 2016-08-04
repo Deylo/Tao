@@ -288,17 +288,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201607290952357_InitialCreate.cs" />
-    <Compile Include="Migrations\201607290952357_InitialCreate.Designer.cs">
-      <DependentUpon>201607290952357_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201608040704233_test.cs" />
+    <Compile Include="Migrations\201608040704233_test.Designer.cs">
+      <DependentUpon>201608040704233_test.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201608020829553_RequiredMigration.cs" />
-    <Compile Include="Migrations\201608020829553_RequiredMigration.Designer.cs">
-      <DependentUpon>201608020829553_RequiredMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608031332034_p.cs" />
-    <Compile Include="Migrations\201608031332034_p.Designer.cs">
-      <DependentUpon>201608031332034_p.cs</DependentUpon>
+    <Compile Include="Migrations\201608040714362_test1.cs" />
+    <Compile Include="Migrations\201608040714362_test1.Designer.cs">
+      <DependentUpon>201608040714362_test1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -325,14 +321,11 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201607290952357_InitialCreate.resx">
-      <DependentUpon>201607290952357_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608040704233_test.resx">
+      <DependentUpon>201608040704233_test.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608020829553_RequiredMigration.resx">
-      <DependentUpon>201608020829553_RequiredMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608031332034_p.resx">
-      <DependentUpon>201608031332034_p.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608040714362_test1.resx">
+      <DependentUpon>201608040714362_test1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

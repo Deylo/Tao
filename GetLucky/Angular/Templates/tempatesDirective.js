@@ -1,18 +1,11 @@
 ﻿let path = '../views/templates/';
 
+
+
 myApp.directive('mainNavBar', function () {
     return {
         restrict: 'E',
         templateUrl: path + 'mainNavBar.html',
-        replace: true,
-        transclude: true,
-    }
-})
-
-myApp.directive('blogNavBar', function () {
-    return {
-        restrict: 'E',
-        templateUrl: path + 'blogNavBar.html',
         replace: true,
         transclude: true,
     }
@@ -39,3 +32,12 @@ myApp.directive('landingPage', function () {
         }
     }
 });
+
+myApp.directive('blogNavBar', function () {
+    return {
+        restrict: 'E',
+        templateUrl: path + 'blogNavBar.html',
+        replace: true,
+        transclude: true,
+    }
+})

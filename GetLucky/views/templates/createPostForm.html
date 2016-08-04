@@ -1,6 +1,6 @@
 ﻿<div ng-show="isCreateForm" class="container-fluid">
     <form name="createPost" class="row">
-        <div class="col-sm-6">
+        <div class="col-md-6">
             <p>Background:</p>
             <input type="file" ngf-select ng-model="picFile" name="file"
                    accept="image/jpeg,image/png,image/gif" ngf-max-size="2MB" ngf-model-invalid="errorFile" required>
@@ -20,9 +20,9 @@
             <i ng-show="createPost.pageName.$error.minlength">*too short</i>
             <i ng-show="createPost.pageName.$error.maxlength">*too long</i>
         </div>
-        <div class="col-sm-6">
+        <div class="col-md-6">
             <p>Content:</p>
-            <textarea rows="10" cols="50" ng-minlength="10" name="content" ng-model="currentPageData.Content" required></textarea>
+            <textarea rows="10" cols="45" ng-minlength="10" name="content" ng-model="currentPageData.Content" required></textarea>
             <i ng-show="createPost.content.$error.required">*required</i>
             <i ng-show="createPost.content.$error.minlength">*too short</i>
             <br>

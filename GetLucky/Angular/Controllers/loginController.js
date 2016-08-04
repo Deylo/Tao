@@ -1,8 +1,8 @@
 ﻿'use strict';
 myApp.controller('loginController',function ($scope, $location, authService, jwtHelper) {
 
+    $scope.passwordRegExp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).*$";
     let notificationDuration = 5;
-
     if ($location.$$url.indexOf('confirmEmail') != -1) {
         alertify.notify('Now you can login', 'success', notificationDuration);
     }
@@ -20,7 +20,7 @@ myApp.controller('loginController',function ($scope, $location, authService, jwt
         },
          function (err) {
              console.log(err.error_description);
-             alertify.notify(err.error_description, 'failed', notificationDuration);
+             alertify.notify(err.error_description, 'error', notificationDuration);
          });
 
         $scope.loginData = {

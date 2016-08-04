@@ -33,20 +33,6 @@ namespace GetLucky.Controllers
             return Ok(comments);
         }
 
-        // GET: api/Comments/5
-        //[ResponseType(typeof(Comment))]
-        //public IHttpActionResult GetComment(int id)
-        //{
-        //    Comment comment = db.Comments.Find(id);
-        //    if (comment == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return Ok(comment);
-        //}
-
-        // PUT: api/Comments/5
         [Authorize]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutComment(int id, Comment comment)

@@ -39,12 +39,15 @@
     });
 
     let _uploadPic = (file) => {
+        let s = new Date();
+        console.log(s);
         file.upload = Upload.upload({
             url: 'api/BlogPages',
             data: {
                 title: $scope.currentPageData.Title,
                 content: $scope.currentPageData.Content,
                 caption: $scope.currentPageData.PageName,
+                date: s,
                 file: file
             },
         });
@@ -53,7 +56,6 @@
             $timeout(() => {
                 file.result = response.data;
                 $scope.blogPageData = [];
-                //$scope.blogPageData.unshift($scope.currentPageData); //&&&&&&&&&&&&&&&&&&
                 $scope.closePage();
                 alertify.notify('Post created', 'success', notificationDuration);
             });
@@ -92,7 +94,7 @@
         $scope.isCreateForm = false;
         $('body').off('keydown', _arrowNavigation);
         $scope.currentPageData = {};
-        $scope.currentPageData.PicturePath = " "; //&&&&&&&&&&&&&&&&&&&&&&&+
+        $scope.currentPageData.PicturePath = " "; 
         $('#comments').removeClass('in');
     }
 
@@ -115,7 +117,7 @@
         $http.get('api/BlogPages/?offset=' + $scope.blogPageData.length + '&limit=4')
             .success((data) => {
                 $scope.blogPageData = $scope.blogPageData.concat(data);
-                $timeout(() => { $scope.infinitePaginationDisabled = false; }, 1000);
+                $timeout(() => { $scope.infinitePaginationDisabled = false; $scope.$broadcast('masonry.reload'); }, 1000);
             }).error((data) => {
                 alertify.notify(data.message, 'error', notificationDuration);
             });

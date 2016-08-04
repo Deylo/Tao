@@ -126,6 +126,7 @@ namespace GetLucky.Controllers
                 bp.Title = provider.FormData.GetValues("title")[0];
                 bp.Content = provider.FormData.GetValues("content")[0];
                 bp.PageName = provider.FormData.GetValues("caption")[0];
+                bp.Date = DateTimeOffset.Parse(provider.FormData.GetValues("date")[0]);
                 string name = provider.FileData[0].LocalFileName;
                 
                 bp.PicturePath = "../img/collage/" + provider.FileData[0].LocalFileName.Split(new char[] { '\\'}).Last();
