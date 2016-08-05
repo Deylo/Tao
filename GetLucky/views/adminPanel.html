@@ -1,7 +1,15 @@
-﻿<div class="container-fluid  admin-panel">
+﻿<div class="container-fluid  admin-panel" ng-controller="adminPanelController">
     <div>
+        <div>
+            <button class="btn btn-default">
+                + Create User
+            </button>
+            <span> 
+                Admin {{authentication.userName}} 
+            </span>
+        </div>
    </div>
-    <table class="table">
+    <table class="table table-bordered">
         <thead class="thead-inverse">
             <tr>
                 <th>User</th>
@@ -11,20 +19,19 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
+            <tr ng-repeat="data in userData">
+                <td>{{data.userName}}</td>
+                <td>
+                    <select class="btn btn-default" ng-model="data.userRole">
+                        <option ng-repeat="role in roles" ng-selected="{{role==data.userRole}}" value="{{role}}">{{role}}</option>
+                    </select>
+                </td>
+                <td class="clickable"> 
+                    <a ng-click="saveChanges(data)" href="">Save changes</a>
+                </td>
+                <td class="clickable">
+                   <a href="" ng-click="deleteUser(data.userName)"> Delete user</a>
+                </td>
             </tr>
         </tbody>
     </table>

@@ -40,7 +40,7 @@ myApp.factory('authService', function ($http, $q, localStorageService, jwtHelper
             //_authentication.role = decodedData.role;
 
             if (decodedData.role) {
-               for (let i in roleEnum) {
+               for (let i in _roleEnum) {
                    if (decodedData.role.toLowerCase() === i.toLowerCase())
                        _authentication.role = _roleEnum[i];
                 }
@@ -96,6 +96,7 @@ myApp.factory('authService', function ($http, $q, localStorageService, jwtHelper
     authServiceFactory.fillAuthData = _fillAuthData;
     authServiceFactory.authentication = _authentication;
     authServiceFactory.roleEnum = _roleEnum;
+    authServiceFactory.notificationDuration = 5;
 
     return authServiceFactory;
 });

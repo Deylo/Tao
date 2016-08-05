@@ -30,7 +30,7 @@ namespace GetLucky.Controllers
                 Email = createUserModel.Email,
                 FirstName = createUserModel.FirstName,
                 LastName = createUserModel.LastName,
-                JoinDate = DateTime.Now.Date,
+                JoinDate = DateTime.Now.Date
             };
 
             IdentityResult addUserResult = await this.AppUserManager.CreateAsync(user, createUserModel.Password);
@@ -39,6 +39,8 @@ namespace GetLucky.Controllers
             {
                 return GetErrorResult(addUserResult);
             }
+
+            AppUserManager.AddToRoles(AppUserManager.FindByName(createUserModel.Username).Id, new string[] { "User"});
 
             string code = await this.AppUserManager.GenerateEmailConfirmationTokenAsync(user.Id);
 
@@ -126,7 +128,7 @@ namespace GetLucky.Controllers
 
         }
 
-        [Authorize(Roles = "Admin")]
+  
         [Route("users")]
         public IHttpActionResult GetUsers()
         {
@@ -164,13 +166,13 @@ namespace GetLucky.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [Route("user/{id:guid}/roles")]
+        [Route("user/{userName}/roles")]
         [HttpPut]
-        public async Task<IHttpActionResult> AssignRolesToUser([FromUri] string id, [FromBody] string[] rolesToAssign)
+        public async Task<IHttpActionResult> AssignRolesToUser([FromUri] string userName, [FromBody] string[] rolesToAssign)
         {
 
-            var appUser = await this.AppUserManager.FindByIdAsync(id);
-
+            var appUser = await AppUserManager.FindByNameAsync(userName);
+            
             if (appUser == null)
             {
                 return NotFound();
@@ -205,5 +207,75 @@ namespace GetLucky.Controllers
 
             return Ok();
         }
+
+        [Authorize(Roles = "Admin")]
+        [Route("user/{userName}")]
+        [HttpDelete]
+        public async Task<IHttpActionResult> DeleteUser(string userName)
+        {
+
+            //Only SuperAdmin or Admin can delete users (Later when implement roles)
+
+            var appUser = await AppUserManager.FindByNameAsync(userName);
+
+            if (appUser != null)
+            {
+                IdentityResult result = await AppUserManager.DeleteAsync(appUser);
+
+                if (!result.Succeeded)
+                {
+                    return GetErrorResult(result);
+                }
+
+                return Ok();
+
+            }
+
+            return NotFound();
+
+        }
+
+        //[Authorize(Roles = "Admin")]
+        //[Route("user/{id:guid}/roles")]
+        //[HttpPut]
+        //public async Task<IHttpActionResult> AssignRolesToUser([FromUri] string id, [FromBody] string[] rolesToAssign)
+        //{
+
+        //    var appUser = await this.AppUserManager.FindByIdAsync(id);
+
+        //    if (appUser == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var currentRoles = await this.AppUserManager.GetRolesAsync(appUser.Id);
+
+        //    var rolesNotExists = rolesToAssign.Except(this.AppRoleManager.Roles.Select(x => x.Name)).ToArray();
+
+        //    if (rolesNotExists.Count() > 0)
+        //    {
+
+        //        ModelState.AddModelError("", string.Format("Roles '{0}' does not exixts in the system", string.Join(",", rolesNotExists)));
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    IdentityResult removeResult = await this.AppUserManager.RemoveFromRolesAsync(appUser.Id, currentRoles.ToArray());
+
+        //    if (!removeResult.Succeeded)
+        //    {
+        //        ModelState.AddModelError("", "Failed to remove user roles");
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    IdentityResult addResult = await this.AppUserManager.AddToRolesAsync(appUser.Id, rolesToAssign);
+
+        //    if (!addResult.Succeeded)
+        //    {
+        //        ModelState.AddModelError("", "Failed to add user roles");
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    return Ok();
+        //}
     }
 }
