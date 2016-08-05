@@ -7,7 +7,8 @@
         </blog-nav-bar>
         <div ng-show="isShowPage" id="cap" ng-click="closePage()"></div>
         <div ng-show="isShowPage" class="blog-page">
-            <div id="blog-page-close" class="glyphicon glyphicon-remove clickable" ng-click="closePage()"></div>
+            <div id="blog-page-edit" class="blog-page-icon glyphicon glyphicon-edit clickable" ng-click="editPage(currentPageData.Id)"></div>
+            <div id="blog-page-close" class="blog-page-icon glyphicon glyphicon-remove clickable" ng-click="closePage()"></div>
             <div id="blog-page-name">
                 <div class="block-ornament block-ornament-top visible-lg-block visible-md-block"></div>
                 <div class="block-ornament block-ornament-bottom mirror visible-lg-block visible-md-block"></div>
@@ -24,6 +25,7 @@
                             <div>
                                 <span class="comment-author">{{message.UserName}}</span>
                                 <span class="comment-date">{{message.Date|date:'short'}} 
+                                    <span ng-show="authentication.role >= roleEnum.admin" ng-click="editMessage(message)" class="glyphicon glyphicon-edit clickable"></span>
                                     <span ng-show="authentication.role >= roleEnum.admin" ng-click="deleteMessage(message.Id)" class="glyphicon glyphicon-remove clickable"></span>
                                 </span>
                             </div>
@@ -33,7 +35,7 @@
                         </div>
                         <hr>
                         <div class="container-fluid">
-                            <form class="row" ng-show="authentication.isAuth" name="commentForm" ng-submit="commentForm.$valid && sendComment()">
+                            <form class="row" ng-show="authentication.isAuth" name="commentForm" ng-submit="commentForm.$valid && isEdit ? confirmMessageChanges() : sendComment()">
                                 <input class="col-md-11 col-sm-10 col-xs-12" placeholder="Add a comment" ng-model="message.Text" required />
                                 <button class="col-md-1 col-sm-2 col-xs-12" type="submit"> Submit</button>
                             </form>

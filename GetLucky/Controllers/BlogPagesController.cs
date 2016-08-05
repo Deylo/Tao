@@ -18,7 +18,7 @@ using System.Net.Http.Headers;
 namespace GetLucky.Controllers
 {
  
-    public class BlogPagesController : ApiController
+    public class BlogPagesController : BaseApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
@@ -31,10 +31,28 @@ namespace GetLucky.Controllers
         // GET: api/BlogPages/?offset=0&limit=4
         [HttpGet]
         [ResponseType(typeof(BlogPage))]
-        public IHttpActionResult GetSomePages(int offset, int limit)
+        public async Task<IHttpActionResult> GetBlogPages(int offset, int limit)
         {
+            var userName = User.Identity.Name;
+            var user = await AppUserManager.FindByNameAsync(userName);
+            var role = await AppRoleManager.FindByIdAsync(user.Roles.ToList()[0].RoleId);
+            IQueryable<BlogPage> blogPages;
 
-            var blogPages = db.BlogPages.OrderByDescending((s) =>  s.Id ).Skip(offset).Take(limit);
+            switch (role.Name)
+            {
+                case "Admin":
+                    blogPages = db.BlogPages.OrderByDescending((s) => s.Id).Skip(offset).Take(limit);
+                    break;
+                case "PremiumUser":
+                    blogPages = db.BlogPages.Where((item) => item.UserName != "Admin" ).OrderByDescending((s) => s.Id).Skip(offset).Take(limit);
+                    break;
+                case "User":
+                    blogPages = db.BlogPages.Where((item) => item.UserName == userName).OrderByDescending((s) => s.Id).Skip(offset).Take(limit);
+                    break;
+                default:
+                    return Ok();
+            }
+
             //if (blogPages == null)
             //{
             //    return NotFound();
@@ -59,7 +77,7 @@ namespace GetLucky.Controllers
         // PUT: api/BlogPages/5
         [Authorize]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutBlogPage(int id, BlogPage blogPage)
+        public IHttpActionResult PutBlogPage([FromUri]int id, [FromBody]BlogPage blogPage)
         {
             if (!ModelState.IsValid)
             {
@@ -127,6 +145,7 @@ namespace GetLucky.Controllers
                 bp.Content = provider.FormData.GetValues("content")[0];
                 bp.PageName = provider.FormData.GetValues("caption")[0];
                 bp.Date = DateTimeOffset.Parse(provider.FormData.GetValues("date")[0]);
+                bp.UserName = provider.FormData.GetValues("userName")[0];
                 string name = provider.FileData[0].LocalFileName;
                 
                 bp.PicturePath = "../img/collage/" + provider.FileData[0].LocalFileName.Split(new char[] { '\\'}).Last();

@@ -298,6 +298,14 @@
     <Compile Include="Migrations\201608040714362_test1.Designer.cs">
       <DependentUpon>201608040714362_test1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608051217397_2.cs" />
+    <Compile Include="Migrations\201608051217397_2.Designer.cs">
+      <DependentUpon>201608051217397_2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608051340215_12.cs" />
+    <Compile Include="Migrations\201608051340215_12.Designer.cs">
+      <DependentUpon>201608051340215_12.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -328,6 +336,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608040714362_test1.resx">
       <DependentUpon>201608040714362_test1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608051217397_2.resx">
+      <DependentUpon>201608051217397_2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608051340215_12.resx">
+      <DependentUpon>201608051340215_12.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

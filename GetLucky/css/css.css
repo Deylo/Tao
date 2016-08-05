@@ -312,9 +312,8 @@ landing-page button.btn{
     
 }
 
-#blog-page-close{
+.blog-page-icon{
     position: absolute;
-    left: 100%;
     bottom: 100%;
     width: 24px;
     height: 24px;
@@ -324,6 +323,15 @@ landing-page button.btn{
     margin-bottom: -7px;
     
 }
+
+#blog-page-close{
+    left: 100%;
+}
+
+#blog-page-edit{
+    left: 96%;
+}
+
 
 #blog-page-name{
     position: absolute;

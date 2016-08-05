@@ -19,6 +19,8 @@ namespace GetLucky.Models
         public string Title { get; set; }
         [Required]
         public DateTimeOffset Date { get; set; }
+        [Required]
+        public string UserName { get; set; }
 
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
     }

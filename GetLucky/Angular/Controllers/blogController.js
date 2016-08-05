@@ -9,6 +9,7 @@
     $scope.infinitePaginationDisabled = false
     $scope.blogNavigation = 'discover';
     $scope.authentication = {};
+    $scope.isEdit = false;
 
     authService.fillAuthData();
     $scope.authentication = authService.authentication;
@@ -49,7 +50,8 @@
                 content: $scope.currentPageData.Content,
                 caption: $scope.currentPageData.PageName,
                 date: s,
-                file: file
+                file: file,
+                userName: authService.authentication.userName
             },
         });
 
@@ -61,8 +63,7 @@
                 alertify.notify('Post created', 'success', notificationDuration);
             });
         }, (response) => {
-            if (response.status > 0)
-                $scope.errorMsg = response.status + ': ' + response.data;
+            alertify.notify(response.data.message, 'error', notificationDuration);
         });
     }
 
@@ -71,6 +72,24 @@
         $scope.isShowPage = true;
         $scope.isCreateForm = true;
        
+    }
+
+    let _editMessage = (message) => {
+        $scope.message = message;
+        $scope.isEdit = true;
+
+    }
+
+    let _confirmMessageChanges = () => {
+        $http.put('api/comments/' + $scope.message.Id, $scope.message)
+                .success((data) => {
+                    alertify.notify('dsdada', 'success', notificationDuration);
+                }
+                ).error((data) => {
+                    alertify.notify(data.message, 'error', notificationDuration);
+                    
+                });
+        $scope.message = {};
     }
 
     let _sendComment = () => {
@@ -97,6 +116,11 @@
         $scope.currentPageData = {};
         $scope.currentPageData.PicturePath = " "; 
         $('#comments').removeClass('in');
+    }
+
+    let _edit = () => {
+        $scope.isShowPage = true;
+        $scope.isCreateForm = true;
     }
 
     let _showBlogPage = ($event) => {
@@ -188,6 +212,9 @@
     $scope.uploadPic = _uploadPic;
     $scope.showCreatePostPage = _showCreatePostPage;
     $scope.sendComment = _sendComment;
+    $scope.editPage = _edit;
+    $scope.confirmMessageChanges = _confirmMessageChanges;
+    $scope.editMessage = _editMessage;
     $scope.closePage = _closePage;
     $scope.showBlogPage = _showBlogPage;
     $scope.pagination = _pagination;
