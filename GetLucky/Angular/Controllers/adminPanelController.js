@@ -29,14 +29,9 @@
     let _getUserList = () => {
         $http.get('api/accounts/users')
                .success((data) => {
-                   $scope.userData = [];
-                   data.forEach((item) => {
-                       $scope.userData.push(
-                           {
-                               userName: item.userName,
-                               userRole: item.roles[0]
-                           }
-                       );
+                   $scope.userData = data;
+                   $scope.userData.forEach((item) => {
+                       item.userRole = item.roles[0];
                    });
                }).error((data) => {
                    alertify.notify(data.message, 'error', notificationDuration);

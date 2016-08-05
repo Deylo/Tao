@@ -1,38 +1,70 @@
 ﻿<div class="container-fluid  admin-panel" ng-controller="adminPanelController">
-    <div>
+    <div class="admin-panel-head">
         <div>
-            <button class="btn btn-default">
+            <button type="button" class="btn btn-default"  data-toggle="modal" data-target="#modal">
                 + Create User
             </button>
+            <!-- Modal -->
+           
             <span> 
                 Admin {{authentication.userName}} 
             </span>
         </div>
    </div>
+    <div class="modal fade" id="modal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <p>This is a small modal.</p>
+                    <p>This is a small modal.</p>
+                    <p>This is a small modal.</p>
+                    <p>This is a small modal.</p>
+                    <p>This is a small modal.</p>
+                    <p>This is a small modal.</p>
+                    <p>This is a small modal.</p>
+                    <p>This is a small modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <table class="table table-bordered">
         <thead class="thead-inverse">
             <tr>
                 <th>User</th>
                 <th>User role</th>
+                <th>Full name</th>
+                <th>Join date</th>
+                <th>Email</th>
                 <th>Save changes</th>
                 <th>Delete user</th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="data in userData">
+            <tr ng-repeat="data in userData | orderBy : 'userName'">
                 <td>{{data.userName}}</td>
                 <td>
-                    <select class="btn btn-default" ng-model="data.userRole">
+                    <select  class="btn btn-default" ng-model="data.userRole" ng-disabled="data.userRole == 'Admin'">
                         <option ng-repeat="role in roles" ng-selected="{{role==data.userRole}}" value="{{role}}">{{role}}</option>
                     </select>
                 </td>
+                <td>{{data.fullName}}</td>
+                <td>{{data.joinDate | date : 'medium'}}</td>
+                <td>{{data.email}}</td>
                 <td class="clickable"> 
-                    <a ng-click="saveChanges(data)" href="">Save changes</a>
+                    <button ng-disabled="data.userRole == 'Admin'" ng-click="saveChanges(data)" class="btn btn-default">Save changes</button>
                 </td>
                 <td class="clickable">
-                   <a href="" ng-click="deleteUser(data.userName)"> Delete user</a>
+                   <button ng-disabled="data.userRole == 'Admin'" ng-click="deleteUser(data.userName)" class="btn btn-default"> Delete user</button>
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
+

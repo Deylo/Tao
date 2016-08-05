@@ -22,6 +22,7 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
+                            <li ng-show="authentication.role >= roleEnum.admin"><a class="clickable" ui-sref="adminPanel">Admin Panel</a></li>
                             <li><a ng-click="logOut()" class="clickable">Log Out</a></li>
                         </ul>
                     </div>

@@ -39,7 +39,7 @@ myApp.controller('signupController', function ($scope, $location, $timeout, auth
                      errors.push(response.data.modelState[key][i]);
                  }
              }
-             alertify.notify('Failed to register user due to:' + errors.join(' '), 'error', notificationDuration);
+             alertify.notify('Failed to register user:' + errors.join(' '), 'error', notificationDuration);
          });
     };
 

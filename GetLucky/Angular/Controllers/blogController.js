@@ -29,7 +29,6 @@
             .error((data, status, headers, config) => {
                 alertify.notify(data.Message, 'failure', notificationDuration);
             });
-
     }
 
     $scope.$watch('picFile',  () => {

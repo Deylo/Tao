@@ -397,19 +397,19 @@ landing-page button.btn{
 
 /*Admin panel*/
 
-.admin-panel > div{
+.admin-panel-head{
     padding: 10px;
     background-color: rgb(33,150,53);
     color: white;
     display: flex;
 }
 
-.admin-panel > div button{
+.admin-panel-head button{
     background: rgb(33,150,53);
     color: white;
 }
 
-.admin-panel > div > div{
+.admin-panel-head > div{
     margin-left: auto;
 } 
 
