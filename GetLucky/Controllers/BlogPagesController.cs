@@ -14,10 +14,11 @@ using System.Web;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http.Headers;
+using System.ComponentModel.DataAnnotations;
 
 namespace GetLucky.Controllers
 {
- 
+
     public class BlogPagesController : BaseApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -110,20 +111,10 @@ namespace GetLucky.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/BlogPages
-        //[ResponseType(typeof(BlogPage))]
-        //public IHttpActionResult PostBlogPage(BlogPage blogPage)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
 
-        //    db.BlogPages.Add(blogPage);
-        //    db.SaveChanges();
 
-        //    return CreatedAtRoute("DefaultApi", new { id = blogPage.Id }, blogPage);
-        //}
+        //POST: api/BlogPages
+
         [Authorize]
         public async Task<IHttpActionResult> PostFormData()
         {

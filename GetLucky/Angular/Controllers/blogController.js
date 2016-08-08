@@ -207,6 +207,7 @@
 
         });
     }
+
     $scope.logOut = _logOut;
     $scope.deleteMessage = _deleteMessage;
     $scope.uploadPic = _uploadPic;
